@@ -30,4 +30,7 @@ y al ultimo podemos ver desde la pagina web la ubicacion del usuario
 ![image](https://github.com/user-attachments/assets/76e3b9e2-8ee8-47d5-b78a-a2ed8840dea2)
 ![image](https://github.com/user-attachments/assets/a3e7bcac-acb5-4f60-a95f-c152b27450cd)
 
+# como podemos ver aqui
+![image](https://github.com/user-attachments/assets/e5f8ca31-aef5-4c36-a26f-93e2c57a4f61)
+
 
