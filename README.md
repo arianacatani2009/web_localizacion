@@ -1,12 +1,11 @@
-# Geo Poli - Pagina Web
+# Localizacion web - Pagina Web
 
 
 
 ## Integrantes:
-- Wilson Guayanay
-- Marlon Lalangui
-- Josue Salazar
-- Melani Molina
+- Ariana Catani
+- Nataly Casillas
+- Alejandro Chango
 
 
 
