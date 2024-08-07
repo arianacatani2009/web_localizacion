@@ -22,12 +22,16 @@ y al acceder se nos va a abrir la lista de los usuarios y con ello los datos de 
 
 
 En acciones tenemos el boton de eliminar y el de activar o desactivar
+
 ![image](https://github.com/user-attachments/assets/58b871bf-6d3e-4fec-8af7-2bdafb69e69c)
+
 ![image](https://github.com/user-attachments/assets/271a2d75-bd5c-427e-ba5f-83a5a5653260)
 
 
 y al ultimo podemos ver desde la pagina web la ubicacion del usuario
+
 ![image](https://github.com/user-attachments/assets/76e3b9e2-8ee8-47d5-b78a-a2ed8840dea2)
+
 ![image](https://github.com/user-attachments/assets/a3e7bcac-acb5-4f60-a95f-c152b27450cd)
 
 # como podemos ver aqui
