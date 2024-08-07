@@ -46,6 +46,8 @@ const MapScreen = () => {
                 {locations.map((location) => {
                     const user = users[location.id];
                     const userName = user ? `${user.name} ${user.lastName}` : 'Desconocido';
+                    console.log('Location ID:', location.id);
+                    console.log('User:', user);
                     return (
                         <Marker
                             key={location.id}

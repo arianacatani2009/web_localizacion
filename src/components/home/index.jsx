@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../contexts/authContext';
 import { getDatabase, ref, onValue, off, remove, set, update } from 'firebase/database';
 import { getAuth, createUserWithEmailAndPassword, deleteUser as deleteAuthUser } from 'firebase/auth';
-import { get, child } from 'firebase/database';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash, faToggleOn, faToggleOff } from '@fortawesome/free-solid-svg-icons';
 
 const Home = ({ navigation }) => {
     const { currentUser } = useAuth();
@@ -91,13 +92,11 @@ const Home = ({ navigation }) => {
                         await remove(terrenosRef);
                         console.log('Registros de terrenos eliminados correctamente.');
 
-
                         // Eliminar registros relacionados en la colección 'locations'
                         const locationsRef = ref(database, `locations/${userId}`);
                         await remove(locationsRef);
                         console.log('Registros de ubicaciones eliminados correctamente.');
 
-                        let id; // Declare the variable
                         // Actualizar la lista de usuarios para mostrar el cambio
                         const usersRefList = ref(database, `users`);
                         onValue(usersRefList, (snapshot) => {
@@ -109,7 +108,6 @@ const Home = ({ navigation }) => {
                                     name: usersData[key].name,
                                     lastName: usersData[key].lastName,
                                     isActive: usersData[key].isActive,
-                                    id,
                                 }));
                                 setUsers(usersArray);
                             }
@@ -126,13 +124,11 @@ const Home = ({ navigation }) => {
                         await remove(terrenosRef);
                         console.log('Registros de terrenos eliminados correctamente.');
 
-
                         // Eliminar registros relacionados en la colección 'locations'
                         const locationsRef = ref(database, `locations/${userId}`);
                         await remove(locationsRef);
                         console.log('Registros de ubicaciones eliminados correctamente.');
 
-                        let id; // Declare the variable
                         // Actualizar la lista de usuarios para mostrar el cambio
                         const usersRefList = ref(database, `users`);
                         onValue(usersRefList, (snapshot) => {
@@ -144,7 +140,6 @@ const Home = ({ navigation }) => {
                                     name: usersData[key].name,
                                     lastName: usersData[key].lastName,
                                     isActive: usersData[key].isActive,
-                                    id,
                                 }));
                                 setUsers(usersArray);
                             }
@@ -166,41 +161,45 @@ const Home = ({ navigation }) => {
             console.error('Error al cambiar el estado de activación del usuario:', error.message);
         }
     };
+
     const handleChangePage = () => {
         navigate('/maps');
     };
 
-
     return (
-        <div className="pt-14">
-            <h1 className="text-2xl font-bold mb-4">Admin Dashboard</h1>
+        <div className="pt-14 bg-gradient-to-br from-indigo-600 to-purple-600 min-h-screen font-sans text-black">
+            <h1 className="text-3xl font-bold mb-6 text-center text-black">Lista de Usuarios</h1>
             <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200">
+                <table className="min-w-full divide-y divide-gray-200 bg-white rounded-lg shadow-lg">
                     {/* Encabezados de la tabla */}
-                    <thead className="bg-gray-50">
+                    <thead className="bg-blue-100 text-blue-700">
                         <tr>
-                            <th>Email</th>
-                            <th>Name</th>
-                            <th>Last Name</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Email</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Nombre</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Apellido</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Estado</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Acciones</th>
                         </tr>
                     </thead>
                     {/* Cuerpo de la tabla */}
-                    <tbody className="bg-white divide-y divide-gray-200">
+                    <tbody className="bg-white divide-y divide-gray-200 text-black">
                         {users.map((user) => (
                             <tr key={user.id}>
-                                <td>{user.email}</td>
-                                <td>{user.name}</td>
-                                <td>{user.lastName}</td>
-                                <td>
+                                <td className="px-6 py-4 text-sm text-black">{user.email}</td>
+                                <td className="px-6 py-4 text-sm text-black">{user.name}</td>
+                                <td className="px-6 py-4 text-sm text-black">{user.lastName}</td>
+                                <td className="px-6 py-4 text-sm">
                                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${user.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                        {user.isActive ? 'Active' : 'Inactive'}
+                                        {user.isActive ? 'Activo' : 'Inactivo'}
                                     </span>
                                 </td>
-                                <td>
-                                    <button onClick={() => handleDeleteUser(user.id)} className="text-red-500 hover:text-red-700">Delete</button>
-                                    <button onClick={() => toggleUserActivation(user.id, user.isActive)} className="ml-2">{user.isActive ? 'Deactivate' : 'Activate'}</button>
+                                <td className="px-6 py-4 text-sm flex space-x-2">
+                                    <button onClick={() => handleDeleteUser(user.id)} className="text-red-500 hover:text-red-700">
+                                        <FontAwesomeIcon icon={faTrash} />
+                                    </button>
+                                    <button onClick={() => toggleUserActivation(user.id, user.isActive)} className="text-indigo-500 hover:text-indigo-700">
+                                        <FontAwesomeIcon icon={user.isActive ? faToggleOff : faToggleOn} />
+                                    </button>
                                 </td>
                             </tr>
                         ))}
@@ -208,29 +207,27 @@ const Home = ({ navigation }) => {
                 </table>
             </div>
             {/* Formulario para agregar nuevo usuario */}
-            <div className="mt-8 max-w-md mx-auto">
-                <h2 className="text-lg font-semibold">Agregar Nuevo Usuario</h2>
-                <form onSubmit={handleNewUserSubmit} className="mt-4">
+            <div className="max-w-md mx-auto mt-8 bg-white p-6 rounded-lg shadow-lg">
+                <h2 className="text-2xl font-bold mb-6 text-center text-black">Registrar Nuevo Usuario</h2>
+                <form onSubmit={handleNewUserSubmit}>
                     <div className="mb-4">
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
-                        <input type="email" id="email" value={newUserEmail} onChange={(e) => setNewUserEmail(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <label htmlFor="email" className="block text-sm font-medium text-black">Correo Electrónico:</label>
+                        <input type="email" id="email" value={newUserEmail} onChange={(e) => setNewUserEmail(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña:</label>
-                        <input type="password" id="password" value={newUserPassword} onChange={(e) => setNewUserPassword(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <label htmlFor="password" className="block text-sm font-medium text-black">Contraseña:</label>
+                        <input type="password" id="password" value={newUserPassword} onChange={(e) => setNewUserPassword(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre:</label>
-                        <input type="text" id="name" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <label htmlFor="name" className="block text-sm font-medium text-black">Nombre:</label>
+                        <input type="text" id="name" value={newUserName} onChange={(e) => setNewUserName(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" />
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">Apellido:</label>
-                        <input type="text" id="lastName" value={newUserLastName} onChange={(e) => setNewUserLastName(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                        <label htmlFor="lastName" className="block text-sm font-medium text-black">Apellido:</label>
+                        <input type="text" id="lastName" value={newUserLastName} onChange={(e) => setNewUserLastName(e.target.value)} required className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 sm:text-sm" />
                     </div>
-                    <button type="submit" className="inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Registrar Usuario</button>
-
-                    <button type="button" onClick={handleChangePage}>Ubicacion de mineros</button>
-
+                    <button type="submit" className="inline-block px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">Registrar Usuario</button>
+                    <button type="button" onClick={handleChangePage} className="ml-2 inline-block px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Ubicación de Usuarios</button>
                 </form>
             </div>
         </div>
