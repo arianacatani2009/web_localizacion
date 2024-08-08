@@ -178,7 +178,8 @@ const Home = ({ navigation }) => {
                             <th className="px-6 py-3 text-left text-sm font-semibold text-black">Nombre</th>
                             <th className="px-6 py-3 text-left text-sm font-semibold text-black">Apellido</th>
                             <th className="px-6 py-3 text-left text-sm font-semibold text-black">Estado</th>
-                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Acciones</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Desactivar/Activar</th>
+                            <th className="px-6 py-3 text-left text-sm font-semibold text-black">Eliminar</th>
                         </tr>
                     </thead>
                     {/* Cuerpo de la tabla */}
@@ -193,12 +194,14 @@ const Home = ({ navigation }) => {
                                         {user.isActive ? 'Activo' : 'Inactivo'}
                                     </span>
                                 </td>
-                                <td className="px-6 py-4 text-sm flex space-x-2">
-                                    <button onClick={() => handleDeleteUser(user.id)} className="text-red-500 hover:text-red-700">
-                                        <FontAwesomeIcon icon={faTrash} />
-                                    </button>
+                                <td className="px-6 py-4 text-sm">
                                     <button onClick={() => toggleUserActivation(user.id, user.isActive)} className="text-indigo-500 hover:text-indigo-700">
                                         <FontAwesomeIcon icon={user.isActive ? faToggleOff : faToggleOn} />
+                                    </button>
+                                </td>
+                                <td className="px-6 py-4 text-sm">
+                                    <button onClick={() => handleDeleteUser(user.id)} className="text-red-500 hover:text-red-700">
+                                        <FontAwesomeIcon icon={faTrash} />
                                     </button>
                                 </td>
                             </tr>
@@ -207,7 +210,7 @@ const Home = ({ navigation }) => {
                 </table>
             </div>
             {/* Formulario para agregar nuevo usuario */}
-            <div className="max-w-md mx-auto mt-8 bg-white p-6 rounded-lg shadow-lg">
+            <div className="max-w-md mx-auto mt-8 bg-white p-8 rounded-lg shadow-lg">
                 <h2 className="text-2xl font-bold mb-6 text-center text-black">Registrar Nuevo Usuario</h2>
                 <form onSubmit={handleNewUserSubmit}>
                     <div className="mb-4">
