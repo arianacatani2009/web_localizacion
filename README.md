@@ -38,3 +38,7 @@ y al ultimo podemos ver desde la pagina web la ubicacion del usuario
 ![image](https://github.com/user-attachments/assets/e5f8ca31-aef5-4c36-a26f-93e2c57a4f61)
 
 
+LINK DE LA PAGINA:
+https://web-localizacion-nrumcsvto-arianacatani2009s-projects.vercel.app/
+
+
