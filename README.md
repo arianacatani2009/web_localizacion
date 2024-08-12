@@ -1,5 +1,6 @@
 # Encuentrame web - Pagina Web
 
+![image](https://github.com/user-attachments/assets/f06fd7bb-fd1d-419a-b8f3-4df08ebf72b9)
 
 
 ## Integrantes:
