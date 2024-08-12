@@ -15,7 +15,7 @@ Primero podemos ver el iniciar sesion (si ya tenemos una cuenta)
 
 ![image](https://github.com/user-attachments/assets/27648896-dfaf-4672-be12-0b8a00d5b420)
 
-Oh si no la tenemos pues la podremos crear
+ Si no contamos con una cuenta podemos crearla
 
 ![image](https://github.com/user-attachments/assets/4028dcd8-d256-42a1-8524-40bdba1f0e75)
 
